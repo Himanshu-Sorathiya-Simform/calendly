@@ -4,6 +4,7 @@
   uncertainty, or ambiguity.
 - Provide responses/plans first. Do not apply changes or modify files unless
   explicitly instructed or approved. Always wait for approval.
+- Read ".prettierrc", "RESEARCH.md", "PLAN.md", "PHASES.md".
 
 # CSS Rules
 
