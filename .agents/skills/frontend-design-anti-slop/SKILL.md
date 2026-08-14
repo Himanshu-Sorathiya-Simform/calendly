@@ -12,12 +12,12 @@ Approach this as the design lead at a boutique studio whose entire reputation is
 
 AI-generated design currently clusters around highly predictable, generic tropes. **Unless explicitly requested by the user's brief, the following "AI Slop" defaults are strictly banned:**
 
-*   **Slop Palette 1 (The "Soft Startup"):** Warm cream backgrounds (near `#F4F1EA`) paired with a high-contrast serif display and a terracotta/muted-orange accent.
-*   **Slop Palette 2 (The "DevTool Dark Mode"):** Near-black backgrounds with a single bright acid-green, electric purple, or vermilion accent.
-*   **Slop Palette 3 (The "Faux Brutalist"):** Broadsheet-style layouts with hairline rules, zero border-radius, and dense newspaper-like columns used arbitrarily.
-*   **Slop Hero Sections:** A massive gradient blob or mesh, paired with a big number, a small label, and supporting stats.
-*   **Slop Structuring:** Faux-numbered markers (`01 / 02 / 03`) used as decoration. Numbering is strictly banned unless the content is an actual sequence (like a step-by-step process or chronological timeline).
-*   **Slop Motion:** Scattered, meaningless scroll-reveals or excessive hover micro-interactions that exist just to prove the page is "interactive."
+- **Slop Palette 1 (The "Soft Startup"):** Warm cream backgrounds (near `#F4F1EA`) paired with a high-contrast serif display and a terracotta/muted-orange accent.
+- **Slop Palette 2 (The "DevTool Dark Mode"):** Near-black backgrounds with a single bright acid-green, electric purple, or vermilion accent.
+- **Slop Palette 3 (The "Faux Brutalist"):** Broadsheet-style layouts with hairline rules, zero border-radius, and dense newspaper-like columns used arbitrarily.
+- **Slop Hero Sections:** A massive gradient blob or mesh, paired with a big number, a small label, and supporting stats.
+- **Slop Structuring:** Faux-numbered markers (`01 / 02 / 03`) used as decoration. Numbering is strictly banned unless the content is an actual sequence (like a step-by-step process or chronological timeline).
+- **Slop Motion:** Scattered, meaningless scroll-reveals or excessive hover micro-interactions that exist just to prove the page is "interactive."
 
 ## 1. Ground it in the Subject (The Antidote to Slop)
 
@@ -27,20 +27,20 @@ The subject's own world—its physical materials, instruments, historical artifa
 
 ## 2. Design Principles & Execution
 
-*   **The Hero is a Thesis:** Open with the most characteristic thing in the subject's world. This could be a bold headline, an interactive moment, a live demo, or an unexpected layout. Avoid the standard "Text on left, illustration on right" default.
-*   **Opinionated Typography:** Typography carries the personality of the page. Do not reach for standard geometric sans-serifs (like Inter or Roboto) unless explicitly required. Pair display and body faces deliberately. Set a clear type scale with intentional weights, widths, and spacing. Make the type treatment a memorable architectural element, not just a neutral delivery vehicle.
-*   **Information Over Decoration:** Structural devices (dividers, labels, eyebrows) must encode something true about the content. If it does not organize or clarify, delete it.
-*   **Deliberate Motion:** Match complexity to the vision. An orchestrated, intentional animation moment lands infinitely harder than scattered effects. Extra, unnecessary animation is a massive contributor to the "AI slop" feel. Less is usually more.
-*   **Code Specificity:** When writing the CSS/HTML, be highly careful with your selector specificities. Avoid generic classes that cancel each other out (e.g., mixing type-based selectors like `.section` with element-based selectors like `.cta`). Ensure clean, scalable margins and paddings.
+- **The Hero is a Thesis:** Open with the most characteristic thing in the subject's world. This could be a bold headline, an interactive moment, a live demo, or an unexpected layout. Avoid the standard "Text on left, illustration on right" default.
+- **Opinionated Typography:** Typography carries the personality of the page. Do not reach for standard geometric sans-serifs (like Inter or Roboto) unless explicitly required. Pair display and body faces deliberately. Set a clear type scale with intentional weights, widths, and spacing. Make the type treatment a memorable architectural element, not just a neutral delivery vehicle.
+- **Information Over Decoration:** Structural devices (dividers, labels, eyebrows) must encode something true about the content. If it does not organize or clarify, delete it.
+- **Deliberate Motion:** Match complexity to the vision. An orchestrated, intentional animation moment lands infinitely harder than scattered effects. Extra, unnecessary animation is a massive contributor to the "AI slop" feel. Less is usually more.
+- **Code Specificity:** When writing the CSS/HTML, be highly careful with your selector specificities. Avoid generic classes that cancel each other out (e.g., mixing type-based selectors like `.section` with element-based selectors like `.cta`). Ensure clean, scalable margins and paddings.
 
 ## 3. Anti-Slop Copywriting
 
 Copy can make a bespoke design feel like AI slop instantly. Words exist to make the interface understandable and usable—they are design materials, not filler.
 
-*   **Ban AI Buzzwords:** Never use words like *elevate, seamless, unlock, unleash, dive in, or revolutionize* unless strictly matching the brand's established voice.
-*   **End-User Perspective:** Name things by what people control and recognize. A person "Manages Notifications," they do not "Configure Webhook Payload Delivery."
-*   **Active, Specific Voice:** A control must say exactly what it does. Use "Save Changes," not "Submit." Consistency is mandatory (if a button says "Publish," the success toast says "Published").
-*   **Functional Emptiness & Errors:** Treat failure and empty states as directional moments. Errors do not apologize, and they are never vague. An empty screen is an invitation to act, not a place to write poetry. Let each element do exactly one job.
+- **Ban AI Buzzwords:** Never use words like _elevate, seamless, unlock, unleash, dive in, or revolutionize_ unless strictly matching the brand's established voice.
+- **End-User Perspective:** Name things by what people control and recognize. A person "Manages Notifications," they do not "Configure Webhook Payload Delivery."
+- **Active, Specific Voice:** A control must say exactly what it does. Use "Save Changes," not "Submit." Consistency is mandatory (if a button says "Publish," the success toast says "Published").
+- **Functional Emptiness & Errors:** Treat failure and empty states as directional moments. Errors do not apologize, and they are never vague. An empty screen is an invitation to act, not a place to write poetry. Let each element do exactly one job.
 
 ## 4. Process: The Anti-Slop Checklist
 
@@ -48,10 +48,11 @@ Work in two distinct passes to ensure the output is bespoke.
 
 **Pass 1: Plan & Tokenize**
 Brainstorm a short design plan based on the brief. Create a compact token system:
-*   **Color:** 4–6 named hex values that intentionally avoid the banned palettes.
-*   **Type:** 2+ roles (a characterful display face used with restraint, a complementary body face, and a utility face if needed).
-*   **Layout:** One-sentence prose descriptions and ASCII wireframes to ideate the structure.
-*   **Signature:** Establish the *single* unique element this page will be remembered by.
+
+- **Color:** 4–6 named hex values that intentionally avoid the banned palettes.
+- **Type:** 2+ roles (a characterful display face used with restraint, a complementary body face, and a utility face if needed).
+- **Layout:** One-sentence prose descriptions and ASCII wireframes to ideate the structure.
+- **Signature:** Establish the _single_ unique element this page will be remembered by.
 
 **Pass 2: The Slop-Critique (Before Coding)**
 Review your plan. **Ask yourself: "Would I produce this exact same generic design for a completely different brief?"**
