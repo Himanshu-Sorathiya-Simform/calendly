@@ -5,6 +5,7 @@
 - Provide responses/plans first. Do not apply changes or modify files unless
   explicitly instructed or approved. Always wait for approval.
 - Read ".prettierrc", "RESEARCH.md", "PLAN.md", "PHASES.md".
+- Read README of @himanshu-sorathiya/datetime library from node_modules
 
 # CSS Rules
 
