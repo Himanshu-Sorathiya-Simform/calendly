@@ -19,6 +19,8 @@
 		background-color: var(--color-background);
 		color: var(--color-foreground);
 		font-family: var(--font-sans);
+		letter-spacing: 0.01em;
+		line-height: 1.5;
 	}
 
 	h1,
@@ -28,6 +30,9 @@
 	h5,
 	h6 {
 		font-family: var(--font-heading);
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		font-optical-sizing: auto;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -38,7 +43,8 @@
 	}
 
 	@media (prefers-reduced-transparency: reduce) {
-		.glass {
+		.glass,
+		.glass-heavy {
 			background: var(--color-surface);
 			backdrop-filter: none;
 		}
@@ -46,6 +52,13 @@
 }
 
 @utility glass {
+	background: rgba(255, 255, 255, 0.6);
+	backdrop-filter: blur(20px) saturate(180%);
+	border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+@utility glass-heavy {
 	background: rgba(255, 255, 255, 0.7);
-	backdrop-filter: blur(32px) saturate(180%);
+	backdrop-filter: blur(32px) saturate(200%);
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
