@@ -84,7 +84,6 @@ export async function POST(req: Request) {
 
 			await db.insert(users).values(newUserData).onConflictDoUpdate({
 				target: users.id,
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				set: newUserData,
 			});
 			console.log(`User ${finalId} upserted successfully`);

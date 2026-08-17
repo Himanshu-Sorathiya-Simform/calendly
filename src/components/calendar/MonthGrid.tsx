@@ -36,14 +36,14 @@ export default function MonthGrid({ onSelectDate, selectedDate }: MonthGridProps
 	return (
 		<div className="w-full shrink-0 xl:max-w-sm">
 			<div className="mb-4 flex items-center justify-between">
-				<h3 className="text-graphite font-semibold">
+				<h3 className="text-white font-medium font-serif tracking-tight text-lg">
 					{format(currentMonth, "MMMM yyyy")}
 				</h3>
 				<div className="flex items-center gap-2">
 					{!isCurrentMonthOrPast && (
 						<button
 							onClick={() => setCurrentMonth(startOfMonth(new Date()))}
-							className="text-ultramarine hover:text-ultramarine/80 mr-2 text-xs font-medium transition-colors focus-visible:outline-none"
+							className="text-[#C5A059] hover:text-[#C5A059]/80 mr-2 text-xs font-medium transition-colors focus-visible:outline-none"
 						>
 							Today
 						</button>
@@ -51,25 +51,25 @@ export default function MonthGrid({ onSelectDate, selectedDate }: MonthGridProps
 					<button
 						onClick={handlePrevMonth}
 						disabled={isCurrentMonthOrPast}
-						className="text-graphite flex h-8 w-8 items-center justify-center rounded-full bg-black/5 transition-colors hover:bg-black/10 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-30"
+						className="text-white flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-colors hover:bg-white/10 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-30"
 					>
 						<ChevronLeft className="h-4 w-4" />
 					</button>
 					<button
 						onClick={handleNextMonth}
-						className="text-graphite flex h-8 w-8 items-center justify-center rounded-full bg-black/5 transition-colors hover:bg-black/10 focus-visible:outline-none"
+						className="text-white flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-colors hover:bg-white/10 focus-visible:outline-none"
 					>
 						<ChevronRight className="h-4 w-4" />
 					</button>
 				</div>
 			</div>
 
-			<div className="rounded-3xl border border-black/8 bg-white p-4 shadow-sm">
-				<div className="mb-2 grid grid-cols-7">
+			<div className="rounded-[2rem] border border-white/10 bg-[#16161A]/80 backdrop-blur-xl p-5 shadow-2xl">
+				<div className="mb-4 grid grid-cols-7">
 					{["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
 						<div
 							key={day}
-							className="text-subtle text-center text-xs font-medium tracking-wider uppercase"
+							className="text-white/40 text-center text-[10px] font-semibold tracking-widest uppercase"
 						>
 							{day}
 						</div>
@@ -110,14 +110,14 @@ export default function MonthGrid({ onSelectDate, selectedDate }: MonthGridProps
 										disabled={isPastDay}
 										whileTap={!isPastDay ? { scale: 0.95 } : {}}
 										className={cn(
-											"relative mx-auto flex h-10 w-10 items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none",
+											"relative mx-auto flex h-10 w-10 items-center justify-center rounded-full text-sm transition-colors focus-visible:outline-none",
 											isPastDay ?
-												"cursor-not-allowed text-black/20"
+												"cursor-not-allowed text-white/10"
 											: isSelected ?
-												"bg-ultramarine shadow-ultramarine/20 text-white shadow-md"
+												"bg-[#C5A059] shadow-[#C5A059]/20 text-[#0C0C0E] font-bold shadow-lg"
 											: isCurrentDay ?
-												"border-ultramarine text-ultramarine bg-ultramarine/5 hover:bg-ultramarine/10 border"
-											:	"text-graphite hover:bg-black/5",
+												"border-[#C5A059]/50 text-[#C5A059] bg-[#C5A059]/10 hover:bg-[#C5A059]/20 border font-medium"
+											:	"text-white/80 hover:bg-white/10 font-medium",
 										)}
 									>
 										<span className="relative z-10">

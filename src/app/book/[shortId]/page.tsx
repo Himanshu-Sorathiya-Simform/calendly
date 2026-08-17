@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import BookingCalendar from "../../../components/calendar/BookingCalendar";
 import { db } from "../../../db";
 import { availability, eventTypes, users } from "../../../db/schema";
+import { getFreeBusy } from "../../../utils/googleCalendarUtils";
 
 interface BookingPageProps {
 	params: Promise<{ shortId: string }>;
@@ -35,11 +36,24 @@ export default async function BookingPage({ params }: BookingPageProps) {
 	if (!user) {
 		notFound();
 	}
-
 	// Fetch availability rules
 	const hostAvailability = await db.query.availability.findMany({
 		where: eq(availability.userId, user.id),
 	});
+
+	// Fetch soft conflicts from Google Calendar
+	let softConflicts: { start: string; end: string }[] = [];
+	if (user.googleRefreshToken) {
+		try {
+			softConflicts = await getFreeBusy(
+				user.googleRefreshToken,
+				new Date(),
+				addDays(new Date(), 30)
+			);
+		} catch (e) {
+			console.error("Failed to fetch soft conflicts", e);
+		}
+	}
 
 	// For MVP, generate a mock set of available slots for the next 30 days based on availability rules.
 	// We'll generate them as UTC timestamps and pass to the client.
@@ -82,50 +96,56 @@ export default async function BookingPage({ params }: BookingPageProps) {
 	}
 
 	return (
-		<main className="flex h-dvh w-full flex-col overflow-hidden bg-white md:flex-row">
+		<main className="flex min-h-dvh w-full flex-col overflow-hidden bg-background text-foreground md:flex-row selection:bg-ultramarine/30">
 			{/* Left Sidebar: Host Context */}
-			<div className="bg-background z-10 flex w-full shrink-0 flex-col justify-between border-b border-black/10 p-6 md:w-[35%] md:border-r md:border-b-0 md:p-12 lg:p-16">
-				<div className="space-y-6">
-					<div className="bg-graphite flex h-16 w-16 items-center justify-center overflow-hidden rounded-full text-2xl font-bold text-white">
+			<div className="z-10 flex w-full shrink-0 flex-col justify-between p-6 md:w-[35%] md:p-12 lg:p-16 relative">
+				<div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-500 delay-100 fill-mode-both">
+					<div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-surface border shadow-sm text-2xl font-bold text-graphite">
 						{user.name.charAt(0)}
 					</div>
 					<div>
-						<h1 className="text-subtle mb-2 text-xs font-medium tracking-wider uppercase">
+						<h1 className="text-subtle mb-3 text-xs font-semibold tracking-[0.1em] uppercase">
 							{user.name}
 						</h1>
-						<h2 className="text-graphite text-3xl leading-tight font-bold tracking-tight text-balance md:text-5xl">
+						<h2 className="font-serif text-4xl leading-tight font-medium tracking-tight text-balance md:text-5xl text-graphite">
 							{event.title}
 						</h2>
 					</div>
 
-					<div className="space-y-4 pt-4 md:pt-8">
-						<div className="text-graphite flex items-center gap-3 font-medium">
-							<Clock className="text-subtle h-5 w-5" />
+					<div className="space-y-5 pt-4 md:pt-8 border-t">
+						<div className="flex items-center gap-3 font-medium text-subtle">
+							<Clock className="text-ultramarine h-5 w-5" />
 							<span>{event.duration} min</span>
 						</div>
 
 						{event.description && (
-							<p className="text-subtle max-w-sm leading-relaxed">
+							<p className="text-subtle max-w-sm leading-relaxed text-sm">
 								{event.description}
 							</p>
 						)}
 					</div>
 				</div>
+                
+                {/* Decorative background element for the left pane */}
+                <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+                    <div className="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/[0.02] to-transparent blur-3xl rounded-full"></div>
+                </div>
 			</div>
 
 			{/* Right Side: The Grid */}
-			<div className="bg-surface/30 relative flex h-full w-full flex-col overflow-hidden p-6 md:w-[65%] md:p-12 lg:p-16">
-				<div className="mx-auto flex h-full w-full max-w-5xl flex-col">
+			<div className="relative flex h-full w-full flex-col overflow-hidden p-6 md:w-[65%] md:p-12 lg:p-16">
+				{/* Divider between panels */}
+				<div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-black/10 to-transparent hidden md:block"></div>
+                
+				<div className="mx-auto flex h-full w-full max-w-5xl flex-col relative z-10 animate-in fade-in slide-in-from-right-4 duration-500 delay-200 fill-mode-both">
 					<div className="flex min-h-0 w-full flex-1 flex-col">
-						<h3 className="text-graphite mb-8 w-full shrink-0 text-center text-xl font-bold tracking-tight xl:text-left">
-							Select a Date & Time
-						</h3>
 						<div className="w-full flex-1 overflow-hidden">
 							<BookingCalendar
 								eventTypeId={event.id}
 								eventDuration={event.duration}
 								hostTimezone={user.timezone}
 								availableSlotsUtc={generatedSlotsUtc}
+                                softConflictsUtc={softConflicts}
 							/>
 						</div>
 					</div>

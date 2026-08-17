@@ -13,12 +13,14 @@ interface BookingCalendarProps {
 	// In a real app, this would be raw availability rules and we compute it.
 	// For MVP, we'll mock available slots for the next 30 days based on the host's rules.
 	availableSlotsUtc: string[];
+	softConflictsUtc?: { start: string; end: string }[];
 }
 
 export default function BookingCalendar({
 	eventTypeId,
 	eventDuration,
 	availableSlotsUtc,
+	softConflictsUtc = [],
 }: BookingCalendarProps) {
 	const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 	const [selectedSlot, setSelectedSlot] = useState<string | undefined>(undefined);
@@ -62,6 +64,18 @@ export default function BookingCalendar({
 		return new Date(selectedDateObj.getTime() + eventDuration * 60000);
 	}, [selectedDateObj, eventDuration]);
 
+	const hasSoftConflict = useMemo(() => {
+		if (!selectedDateObj || !endTimeObj || !softConflictsUtc) return false;
+		const start = selectedDateObj.getTime();
+		const end = endTimeObj.getTime();
+		
+		return softConflictsUtc.some(conflict => {
+			const cStart = new Date(conflict.start).getTime();
+			const cEnd = new Date(conflict.end).getTime();
+			return start < cEnd && end > cStart;
+		});
+	}, [selectedDateObj, endTimeObj, softConflictsUtc]);
+
 	return (
 		<div className="flex flex-col xl:flex-row gap-8 w-full max-w-200 mx-auto h-full min-h-0 items-start overflow-hidden">
 			{/* Calendar Grid Container (Fixed width behavior) */}
@@ -76,24 +90,25 @@ export default function BookingCalendar({
 			</div>
 
 			{selectedDate && (
-				<div className="w-full xl:w-80 shrink-0 flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-300">
-					<div className="mb-4 sticky top-0 bg-white/60 backdrop-blur-xl z-10 py-3 px-1 rounded-2xl">
-						<h3 className="text-graphite font-semibold text-center xl:text-left">
+				<div className="w-full xl:w-80 shrink-0 flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500 delay-100 fill-mode-both">
+					<div className="mb-6 sticky top-0 z-10 py-2">
+						<h3 className="text-white font-medium font-serif text-lg tracking-tight text-center xl:text-left">
 							{format(selectedDate, "EEEE, MMMM d")}
 						</h3>
 					</div>
 
 					{formattedSlotsForSelectedDate.length > 0 ? (
-						<div className="flex-1 overflow-y-auto hidden-scrollbar pb-12">
+						<div className="flex-1 overflow-y-auto hidden-scrollbar pb-12 px-1">
 							<CalendarGrid
 								hours={formattedSlotsForSelectedDate}
 								selectedHour={selectedSlot}
 								onSelectHour={handleSlotSelect}
 								onConfirm={handleConfirm}
+								hasSoftConflict={hasSoftConflict}
 							/>
 						</div>
 					) : (
-						<p className="text-subtle text-sm">No available slots for this date.</p>
+						<p className="text-white/40 text-sm italic">No available slots for this date.</p>
 					)}
 				</div>
 			)}

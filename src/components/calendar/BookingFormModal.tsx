@@ -47,7 +47,7 @@ export default function BookingFormModal({
 	return (
 		<Modal isOpen={isOpen} onOpenChange={onClose}>
 			<div className="space-y-4">
-				<h3 className="text-graphite text-xl font-semibold">
+				<h3 className="text-graphite text-2xl font-serif font-medium tracking-tight">
 					Confirm your Booking
 				</h3>
 				<p className="text-subtle text-sm">
@@ -61,16 +61,16 @@ export default function BookingFormModal({
 
 					<div className="space-y-4">
 						<div>
-							<label htmlFor="name" className="text-sm font-medium text-graphite block mb-1">
+							<label htmlFor="name" className="text-sm font-medium text-graphite block mb-2">
 								Name
 							</label>
-							<Input id="name" name="name" type="text" placeholder="Your name" required />
+							<Input id="name" name="name" type="text" placeholder="Your name" required className="bg-white border-black/10 text-graphite placeholder:text-subtle focus-visible:ring-ultramarine" />
 						</div>
 						<div>
-							<label htmlFor="email" className="text-sm font-medium text-graphite block mb-1">
+							<label htmlFor="email" className="text-sm font-medium text-graphite block mb-2">
 								Email
 							</label>
-							<Input id="email" name="email" type="email" placeholder="you@example.com" required />
+							<Input id="email" name="email" type="email" placeholder="you@example.com" required className="bg-white border-black/10 text-graphite placeholder:text-subtle focus-visible:ring-ultramarine" />
 						</div>
 					</div>
 
@@ -78,11 +78,11 @@ export default function BookingFormModal({
 						<p className="text-destructive text-sm">{state.message}</p>
 					)}
 
-					<div className="flex justify-end gap-3 pt-4">
-						<Button variant="ghost" onClick={onClose} type="button" disabled={isPending}>
+					<div className="flex justify-end gap-3 pt-6 border-t mt-4">
+						<Button variant="ghost" onClick={onClose} type="button" disabled={isPending} className="text-subtle hover:bg-black/5 hover:text-graphite">
 							Cancel
 						</Button>
-						<Button type="submit" disabled={isPending}>
+						<Button type="submit" disabled={isPending} className="bg-ultramarine text-white hover:bg-ultramarine/90 border-none font-semibold">
 							{isPending ? "Confirming..." : "Confirm Booking"}
 						</Button>
 					</div>
