@@ -47,7 +47,7 @@ export default function Modal({
 								exit={{ opacity: 0, scale: 0.95, y: 10 }}
 								transition={uiSpring}
 								className={cn(
-									"glass fixed top-[50%] left-[50%] z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-3xl p-8 shadow-2xl shadow-black/10 focus:outline-none",
+									"glass-heavy fixed top-[50%] left-[50%] z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-3xl p-8 shadow-2xl shadow-black/10 focus:outline-none",
 									className,
 								)}
 							>

@@ -1,48 +1,59 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { momentumSpring } from "../../utils/motionUtils";
+import { uiSpring } from "../../utils/motionUtils";
 import { cn } from "../../utils/styleUtils";
 
 interface CalendarGridProps {
 	hours: string[];
 	selectedHour?: string | undefined;
 	onSelectHour: (hour: string) => void;
-	className?: string | undefined;
+	onConfirm?: () => void;
+	className?: string;
 }
 
 export default function CalendarGrid({
 	hours,
 	selectedHour,
 	onSelectHour,
+	onConfirm,
 	className,
 }: CalendarGridProps) {
 	return (
-		<div className={cn("flex w-full flex-col gap-3", className)}>
+		<div className={cn("flex w-full flex-col gap-2", className)}>
 			{hours.map((hour) => {
 				const isSelected = selectedHour === hour;
 				return (
-					<button
-						key={hour}
-						onClick={() => onSelectHour(hour)}
-						className="border-ultramarine/20 bg-surface hover:border-ultramarine focus-visible:ring-ultramarine focus-visible:ring-offset-background relative flex h-14 w-full items-center justify-center rounded-xl border px-4 py-2 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-					>
-						<span
+					<div key={hour} className="flex items-center w-full h-13 gap-2">
+						<motion.button
+							onClick={() => onSelectHour(hour)}
+							whileTap={{ scale: 0.97 }}
+							transition={uiSpring}
 							className={cn(
-								"relative z-10 text-base font-semibold transition-colors",
-								isSelected ? "text-white" : "text-ultramarine",
+								"relative flex h-full items-center justify-center rounded-2xl font-semibold transition-colors focus-visible:outline-none shrink-0",
+								isSelected
+									? "w-[48%] bg-graphite text-white shadow-md shadow-black/10"
+									: "w-full bg-white border border-black/10 text-graphite hover:border-black/30 hover:shadow-sm"
 							)}
 						>
 							{hour}
-						</span>
+						</motion.button>
+
 						{isSelected && (
-							<motion.div
-								layoutId="selected-hour"
-								transition={momentumSpring}
-								className="bg-ultramarine shadow-ultramarine/20 absolute inset-0 z-0 rounded-xl shadow-md"
-							/>
+							<motion.button
+								initial={{ opacity: 0, scale: 0.95, x: -10 }}
+								animate={{ opacity: 1, scale: 1, x: 0 }}
+								transition={uiSpring}
+								onClick={(e) => {
+									e.stopPropagation();
+									onConfirm?.();
+								}}
+								className="flex h-full w-[48%] grow items-center justify-center rounded-2xl bg-ultramarine font-bold text-white shadow-md shadow-ultramarine/20 transition-colors hover:bg-ultramarine/90 focus-visible:outline-none"
+							>
+								Next
+							</motion.button>
 						)}
-					</button>
+					</div>
 				);
 			})}
 		</div>
