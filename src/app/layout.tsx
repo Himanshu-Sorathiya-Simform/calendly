@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -21,13 +22,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html
-			lang="en"
-			className={`${outfit.variable} ${plusJakartaSans.variable}`}
-		>
-			<body className="bg-background text-foreground font-sans antialiased">
-				{children}
-			</body>
-		</html>
+		<ClerkProvider>
+			<html
+				lang="en"
+				className={`${outfit.variable} ${plusJakartaSans.variable}`}
+			>
+				<body className="bg-background text-foreground font-sans antialiased">
+					{children}
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
