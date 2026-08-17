@@ -12,6 +12,8 @@ export const users = pgTable("users", {
 	id: serial("id").primaryKey(),
 	email: varchar("email", { length: 255 }).notNull().unique(),
 	name: varchar("name", { length: 255 }).notNull(),
+	username: varchar("username", { length: 255 }).notNull().unique(),
+	timezone: varchar("timezone", { length: 255 }).notNull().default("UTC"),
 	googleRefreshToken: text("google_refresh_token"),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at").defaultNow().notNull(),

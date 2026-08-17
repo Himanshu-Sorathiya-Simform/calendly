@@ -8,12 +8,13 @@ import { availability, bookings, eventTypes, users } from "./schema";
 async function seed() {
 	console.log("Seeding database...");
 
-	// 1. Seed Users
 	const [user] = await db
 		.insert(users)
 		.values({
 			email: "demo@calendly-clone.com",
 			name: "Demo User",
+			username: "demo",
+			timezone: "America/New_York",
 		})
 		.returning();
 
