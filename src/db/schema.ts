@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-	id: serial("id").primaryKey(),
+	id: varchar("id", { length: 255 }).primaryKey(),
 	email: varchar("email", { length: 255 }).notNull().unique(),
 	name: varchar("name", { length: 255 }).notNull(),
 	username: varchar("username", { length: 255 }).notNull().unique(),
@@ -21,12 +21,12 @@ export const users = pgTable("users", {
 
 export const eventTypes = pgTable("event_types", {
 	id: serial("id").primaryKey(),
-	userId: integer("user_id")
+	userId: varchar("user_id", { length: 255 })
 		.references(() => users.id)
 		.notNull(),
 	title: varchar("title", { length: 255 }).notNull(),
 	duration: integer("duration").notNull(), // in minutes
-	slug: varchar("slug", { length: 255 }).notNull().unique(),
+	shortId: varchar("short_id", { length: 255 }).notNull().unique(),
 	description: text("description"),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -34,7 +34,7 @@ export const eventTypes = pgTable("event_types", {
 
 export const availability = pgTable("availability", {
 	id: serial("id").primaryKey(),
-	userId: integer("user_id")
+	userId: varchar("user_id", { length: 255 })
 		.references(() => users.id)
 		.notNull(),
 	dayOfWeek: integer("day_of_week").notNull(), // 0 = Sunday, 1 = Monday, etc.

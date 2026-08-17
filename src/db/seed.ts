@@ -11,6 +11,7 @@ async function seed() {
 	const [user] = await db
 		.insert(users)
 		.values({
+			id: "user_demo12345", // Mock clerk ID
 			email: "demo@calendly-clone.com",
 			name: "Demo User",
 			username: "demo",
@@ -30,14 +31,14 @@ async function seed() {
 				userId: user.id,
 				title: "15 Min Meeting",
 				duration: 15,
-				slug: "15-min-meeting",
+				shortId: "x7aB92",
 				description: "Quick chat to say hello.",
 			},
 			{
 				userId: user.id,
 				title: "30 Min Discovery",
 				duration: 30,
-				slug: "30-min-discovery",
+				shortId: "y8kM31",
 				description: "A deeper dive into your needs.",
 			},
 		])
