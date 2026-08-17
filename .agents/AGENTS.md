@@ -4,6 +4,9 @@
   uncertainty, or ambiguity.
 - Provide responses/plans first. Do not apply changes or modify files unless
   explicitly instructed or approved. Always wait for approval.
+- Read ".prettierrc", "RESEARCH.md", "PLAN.md", "PHASES.md".
+- Read README of @himanshu-sorathiya/datetime library from node_modules
+- After every modification anywhere, run the lint and build commands to verify your changes.
 
 # CSS Rules
 
@@ -33,3 +36,11 @@
 - Have a single `components` folder and use logical grouping inside it. Do not put
   all components at the same level (e.g., group them inside subfolders like `ui/`,
   `calendar/`, `core/`, etc.).
+
+# Code Structure & Best Practices
+
+- Component naming must be PascalCase, and all other naming should be camelCase (except Next.js routing files).
+- Only components should be default exports; all others should be named exports.
+- Never have any constants, utilities, and types at the global level. Put them in `{name}Utils.ts`, `{name}Constants.ts`, or `{name}Types.ts` files inside `types/`, `constants/`, and `utils/` folders (except prop types, which should be one line above the component definition).
+- Export only the things that are used; not everything requires an export.
+- Follow the single responsibility principle: a single component or hook should be doing a single thing. Allow only one component per file.
