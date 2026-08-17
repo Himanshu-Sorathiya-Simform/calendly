@@ -27,14 +27,14 @@ export async function updateAvailability(formData: FormData) {
 
 		// Now, parse the form data and insert the new availability rules
 		// We expect form fields like: day_1_enabled: "on", day_1_start: "09:00", day_1_end: "17:00"
-		
+
 		const inserts = [];
 		for (let day = 0; day <= 6; day++) {
 			const isEnabled = formData.get(`day_${day}_enabled`) === "on";
 			if (isEnabled) {
 				const startTime = formData.get(`day_${day}_start`) as string;
 				const endTime = formData.get(`day_${day}_end`) as string;
-				
+
 				if (startTime && endTime) {
 					inserts.push({
 						userId: user.id,

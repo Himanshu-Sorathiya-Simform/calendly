@@ -46,10 +46,10 @@ export async function createBookingLink(formData: FormData) {
 
 	try {
 		const shortId = generateShortId();
-		
+
 		// In a production app, we would verify shortId uniqueness against the database here
 		// before inserting to handle collisions.
-		
+
 		await db.insert(eventTypes).values({
 			userId: user.id,
 			title,
@@ -95,7 +95,8 @@ export async function updateBookingLink(id: number, formData: FormData) {
 	}
 
 	try {
-		await db.update(eventTypes)
+		await db
+			.update(eventTypes)
 			.set({
 				title,
 				duration,
